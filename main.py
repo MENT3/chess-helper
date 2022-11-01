@@ -22,8 +22,15 @@ if __name__ == "__main__":
   board = find_board(img)
   splited_board = np.array([np.hsplit(x, 8) for x in np.vsplit(board, 8)])
 
-  case = cv2.resize(splited_board[0, 3], (32, 32), interpolation=cv2.INTER_LINEAR)
+  case = cv2.resize(splited_board[7, 6], (32, 32), interpolation=cv2.INTER_LINEAR)
 
-  cv2.imshow("board", case)
-  cv2.waitKey(0)
-  cv2.destroyAllWindows()
+  # TODO clean it
+  white_pieces = list(zip(
+    [
+      *[np.mean(cv2.resize(splited_board[i, 7], (32, 32), interpolation=cv2.INTER_LINEAR)) for i in range(0, 8)],
+      np.mean(cv2.resize(splited_board[1, 6], (32, 32), interpolation=cv2.INTER_LINEAR)),
+    ],
+    ["R", "N", "B", "Q", "K", "B", "N", "R", "P"]
+  ))
+
+  print(white_pieces)
